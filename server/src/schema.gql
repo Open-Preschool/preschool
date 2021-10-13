@@ -1,0 +1,37 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""recipe """
+type Classroom {
+  creationDate: DateTime!
+  description: String
+  id: ID!
+  lessons: [String!]!
+  title: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  addClassroom(newClassroomData: NewClassroomInput!): Classroom!
+  removeClassroom(id: String!): Boolean!
+}
+
+input NewClassroomInput {
+  description: String
+  lessons: [String!]!
+  title: String!
+}
+
+type Query {
+  classroom(id: String!): Classroom!
+  classrooms(skip: Int = 0, take: Int = 25): [Classroom!]!
+}
+
+type Subscription {
+  classroomAdded: Classroom!
+}
