@@ -1,3 +1,4 @@
+console.log('pewpewpew');
 if (!process.env.REACT_NATIVE_SUPABASE_URL) {
   console.log(
     'constants.ts',
