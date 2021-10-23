@@ -1,13 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
-import { useHelloQuery } from '../graphql';
+import { useClassroomQuery } from '../graphql';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
 export default function ModalScreen() {
-  const { loading, error, data } = useHelloQuery({
+  const { loading, error, data } = useClassroomQuery({
+    variables: {
+      id: 'abc123',
+    },
     fetchPolicy: 'no-cache',
   });
   if (loading) return <Text>Loading...</Text>;
@@ -17,7 +20,7 @@ export default function ModalScreen() {
       <View style={styles.container}>
         <Text style={styles.title}>Modal</Text>
         <Text style={styles.title}>
-          {data.hello.world} {data.hello.number}
+          {data.classroom.title} {data.classroom.id}
         </Text>
         <View
           style={styles.separator}
