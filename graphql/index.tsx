@@ -12,57 +12,108 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: any;
 };
 
-export type Hello = {
-  __typename?: 'Hello';
-  number?: Maybe<Scalars['Int']>;
-  world?: Maybe<Scalars['String']>;
+/** recipe  */
+export type Classroom = {
+  __typename?: 'Classroom';
+  creationDate: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  lessons: Array<Scalars['String']>;
+  title: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  addClassroom: Classroom;
+  removeClassroom: Scalars['Boolean'];
+};
+
+
+export type MutationAddClassroomArgs = {
+  newClassroomData: NewClassroomInput;
+};
+
+
+export type MutationRemoveClassroomArgs = {
+  id: Scalars['String'];
+};
+
+export type NewClassroomInput = {
+  description?: Maybe<Scalars['String']>;
+  lessons: Array<Scalars['String']>;
+  title: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  hello: Hello;
+  classroom: Classroom;
+  classrooms: Array<Classroom>;
 };
 
-export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
+
+export type QueryClassroomArgs = {
+  id: Scalars['String'];
+};
 
 
-export type HelloQuery = { __typename?: 'Query', hello: { __typename?: 'Hello', world?: string | null | undefined, number?: number | null | undefined } };
+export type QueryClassroomsArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  classroomAdded: Classroom;
+};
+
+export type ClassroomQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
 
 
-export const HelloDocument = gql`
-    query hello {
-  hello {
-    world
-    number
+export type ClassroomQuery = { __typename?: 'Query', classroom: { __typename?: 'Classroom', id: string, creationDate: any, description?: string | null | undefined, title: string, lessons: Array<string> } };
+
+
+export const ClassroomDocument = gql`
+    query classroom($id: String!) {
+  classroom(id: $id) {
+    id
+    creationDate
+    description
+    title
+    lessons
   }
 }
     `;
 
 /**
- * __useHelloQuery__
+ * __useClassroomQuery__
  *
- * To run a query within a React component, call `useHelloQuery` and pass it any options that fit your needs.
- * When your component renders, `useHelloQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useClassroomQuery` and pass it any options that fit your needs.
+ * When your component renders, `useClassroomQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useHelloQuery({
+ * const { data, loading, error } = useClassroomQuery({
  *   variables: {
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useHelloQuery(baseOptions?: Apollo.QueryHookOptions<HelloQuery, HelloQueryVariables>) {
+export function useClassroomQuery(baseOptions: Apollo.QueryHookOptions<ClassroomQuery, ClassroomQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<HelloQuery, HelloQueryVariables>(HelloDocument, options);
+        return Apollo.useQuery<ClassroomQuery, ClassroomQueryVariables>(ClassroomDocument, options);
       }
-export function useHelloLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HelloQuery, HelloQueryVariables>) {
+export function useClassroomLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ClassroomQuery, ClassroomQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<HelloQuery, HelloQueryVariables>(HelloDocument, options);
+          return Apollo.useLazyQuery<ClassroomQuery, ClassroomQueryVariables>(ClassroomDocument, options);
         }
-export type HelloQueryHookResult = ReturnType<typeof useHelloQuery>;
-export type HelloLazyQueryHookResult = ReturnType<typeof useHelloLazyQuery>;
-export type HelloQueryResult = Apollo.QueryResult<HelloQuery, HelloQueryVariables>;
+export type ClassroomQueryHookResult = ReturnType<typeof useClassroomQuery>;
+export type ClassroomLazyQueryHookResult = ReturnType<typeof useClassroomLazyQuery>;
+export type ClassroomQueryResult = Apollo.QueryResult<ClassroomQuery, ClassroomQueryVariables>;

@@ -1,6 +1,9 @@
-query hello {
-  hello {
-    world
-    number
+query classroom($id: String!) {
+  classroom(id: $id) {
+    id
+    creationDate
+    description
+    title
+    lessons
   }
 }
