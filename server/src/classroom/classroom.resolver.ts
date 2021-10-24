@@ -3,13 +3,22 @@ import { PubSub } from 'graphql-subscriptions';
 import { NewClassroomInput } from './dto/new-classroom.input';
 import { ClassroomsArgs } from './dto/classrooms.args';
 import { Classroom } from './models/classroom.model';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../auth/supabase.guard';
+import { SupabaseAuthUser } from 'nestjs-supabase-auth';
+import { CurrentUser } from '../auth/current-user.decorator';
 
 const pubSub = new PubSub();
 
+@UseGuards(GqlAuthGuard)
 @Resolver((of) => Classroom)
 export class ClassroomsResolver {
   @Query((returns) => Classroom)
-  async classroom(@Args('id') id: string): Promise<Classroom> {
+  async classroom(
+    @CurrentUser() user: SupabaseAuthUser,
+    @Args('id') id: string,
+  ): Promise<Classroom> {
+    console.log('user', user);
     return Promise.resolve({
       id,
       lessons: ['a', 'b'],
