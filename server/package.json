@@ -18,7 +18,10 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "db:up": "docker-compose up -d",
+    "db:stop": "docker-compose stop",
+    "db:down": "docker-compose down"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -26,6 +29,7 @@
     "@nestjs/graphql": "^9.0.6",
     "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/typeorm": "^8.0.2",
     "@supabase/supabase-js": "^1.24.0",
     "apollo-server-express": "^3.4.0",
     "class-validator": "^0.13.1",

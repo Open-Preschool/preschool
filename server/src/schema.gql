@@ -2,13 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""recipe """
+"""classroom """
 type Classroom {
   creationDate: DateTime!
   description: String
   id: ID!
   lessons: [String!]!
-  title: String!
+  teacherId: String!
 }
 
 """

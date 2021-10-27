@@ -9,7 +9,7 @@ export class AppController {
   @UseGuards(AuthGuard('supabase'))
   @Get()
   getHello(@Request() req): any {
-    // return this.appService.getHello();
-    return req.user;
+    console.log(req.user);
+    return this.appService.getHello();
   }
 }

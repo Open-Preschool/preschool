@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
@@ -9,7 +10,7 @@ import { ClassroomModule } from './classroom/classroom.module';
 
 @Module({
   imports: [
-    AuthModule,
+    TypeOrmModule.forRoot(),
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
@@ -17,6 +18,7 @@ import { ClassroomModule } from './classroom/classroom.module';
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
+    AuthModule,
     ClassroomModule,
   ],
   controllers: [AppController],

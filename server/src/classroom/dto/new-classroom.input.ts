@@ -12,6 +12,6 @@ export class NewClassroomInput {
   @Length(30, 255)
   description?: string;
 
-  @Field((type) => [String])
+  @Field(() => [String])
   lessons: string[];
 }
