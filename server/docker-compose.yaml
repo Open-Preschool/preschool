@@ -1,0 +1,28 @@
+# instructions
+# 1. start 'em up
+# docker-compose up -d
+# 2. stop them
+# docker-compose stop
+# 3. delete 'em. Will also delete data on the container
+# docker-compose down
+
+version: '3.7'
+services:
+  pg-nest:
+    container_name: 'pg-preschool'
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - 'POSTGRES_PASSWORD=test1234'
+    volumes:
+      - local-data:/pg/docker-entrypoint-initdb.d/
+
+  redis-nest:
+    container_name: 'redis-preschool'
+    image: redis
+    ports:
+      - '6379:6379'
+
+volumes:
+  local-data:
