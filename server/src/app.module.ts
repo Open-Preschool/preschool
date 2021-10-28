@@ -12,7 +12,7 @@ import { ClassroomModule } from './classroom/classroom.module';
   imports: [
     TypeOrmModule.forRoot(),
     GraphQLModule.forRoot({
-      installSubscriptionHandlers: true,
+      installSubscriptionHandlers: true, // subscriptions: {'graphql-ws': true},
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       playground: false,

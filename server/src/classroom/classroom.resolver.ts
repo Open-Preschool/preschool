@@ -11,7 +11,7 @@ import { ClassroomService } from './classroom.service';
 
 const pubSub = new PubSub();
 
-@UseGuards(GqlAuthGuard)
+// @UseGuards(GqlAuthGuard)
 @Resolver(() => Classroom)
 export class ClassroomsResolver {
   constructor(private readonly classroomService: ClassroomService) {}
@@ -56,15 +56,20 @@ export class ClassroomsResolver {
       creation_date: creationDate,
       id,
       lessons,
-    } = await this.classroomService.create(new Date().getTime().toString());
-    return Promise.resolve({
+    } = await this.classroomService.create(
+      new Date().getTime().toString(),
+      newClassroomData.lessons,
+    );
+    const newClassroom = {
       id,
       creationDate,
       lessons,
       title: 'Class',
       randomId: 'abc',
       teacherId: 'abc123',
-    });
+    };
+    pubSub.publish('classroomAdded', { classroomAdded: newClassroom });
+    return newClassroom;
   }
 
   @Mutation(() => Boolean)

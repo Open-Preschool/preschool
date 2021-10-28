@@ -4,11 +4,10 @@
       "previewLimit": 50,
       "server": "localhost",
       "port": 5432,
+      "askForPassword": false,
       "driver": "PostgreSQL",
-      "name": "local",
-      "database": "postgres",
-      "username": "postgres",
-      "password": "test1234"
+      "connectString": "postgresql://postgres:postgres@localhost:54322/postgres",
+      "name": "local supabase"
     }
   ]
 }

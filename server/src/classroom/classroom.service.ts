@@ -9,11 +9,11 @@ export class ClassroomService {
     @InjectRepository(Classroom) private repo: Repository<Classroom>,
   ) {}
 
-  create(id: string) {
+  create(teacher_id: string, lessons: string[]) {
     const user = this.repo.create({
       creation_date: new Date(),
-      teacher_id: id,
-      lessons: ['a', 'b'],
+      teacher_id,
+      lessons,
     });
     return this.repo.save(user);
   }

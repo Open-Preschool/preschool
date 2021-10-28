@@ -7,9 +7,13 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @UseGuards(AuthGuard('supabase'))
-  @Get()
-  getHello(@Request() req): any {
-    console.log(req.user);
-    return this.appService.getHello();
+  @Get('me')
+  me(@Request() req): any {
+    return req.user;
+  }
+
+  @Get('health')
+  health(): string {
+    return 'OK';
   }
 }
