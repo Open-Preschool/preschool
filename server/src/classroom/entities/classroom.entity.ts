@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
   AfterInsert,
   AfterUpdate,
@@ -11,12 +12,15 @@ import {
   AfterRemove,
 } from 'typeorm';
 
+@ObjectType({ description: 'classroom ' })
 @Entity()
 @Injectable()
 export class Classroom {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field({ name: 'teacherId' })
   @Index('teacher', { unique: false })
   @Column()
   teacher_id: string;
@@ -24,14 +28,17 @@ export class Classroom {
   @DeleteDateColumn()
   deleted_at?: Date;
 
+  @Field({ name: 'createdAt' })
   @CreateDateColumn()
   created_at: Date;
 
+  @Field(() => [String])
   @Column({ type: 'jsonb' })
   lessons: string[];
 
+  @Field({ nullable: true })
   @Column({ nullable: true })
-  description: string;
+  description?: string;
 
   // Hooks
   @AfterInsert()

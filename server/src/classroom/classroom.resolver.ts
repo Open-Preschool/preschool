@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { NewClassroomInput } from './dto/new-classroom.input';
 import { ClassroomsArgs } from './dto/classrooms.args';
-import { Classroom } from './models/classroom.model';
+import { Classroom } from './entities/classroom.entity';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/supabase.guard';
 import { SupabaseAuthUser } from 'nestjs-supabase-auth';

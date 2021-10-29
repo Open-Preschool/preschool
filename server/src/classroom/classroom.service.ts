@@ -9,7 +9,7 @@ export class ClassroomService {
     @InjectRepository(Classroom) private repo: Repository<Classroom>,
   ) {}
 
-  create(teacher_id: string, lessons: string[]) {
+  create(teacher_id: string, lessons: string[]): Promise<Classroom> {
     const user = this.repo.create({
       teacher_id,
       lessons,
@@ -17,8 +17,7 @@ export class ClassroomService {
     return this.repo.save(user);
   }
 
-  async delete(id: string) {
-    // return this.repo.softDelete(id);
+  async delete(id: string): Promise<boolean> {
     try {
       const classroom = await this.getOne(id);
       await this.repo.softRemove(classroom);
@@ -28,11 +27,11 @@ export class ClassroomService {
     }
   }
 
-  getOne(id: string) {
+  getOne(id: string): Promise<Classroom> {
     return this.repo.findOneOrFail(id);
   }
 
-  getAll(skip: number, take: number) {
+  getAll(skip: number, take: number): Promise<Classroom[]> {
     return this.repo.find({
       skip,
       take,
