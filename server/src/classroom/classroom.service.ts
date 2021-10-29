@@ -11,14 +11,31 @@ export class ClassroomService {
 
   create(teacher_id: string, lessons: string[]) {
     const user = this.repo.create({
-      creation_date: new Date(),
       teacher_id,
       lessons,
     });
     return this.repo.save(user);
   }
 
-  getAll() {
-    return this.repo.find();
+  async delete(id: string) {
+    // return this.repo.softDelete(id);
+    try {
+      const classroom = await this.getOne(id);
+      await this.repo.softRemove(classroom);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  getOne(id: string) {
+    return this.repo.findOneOrFail(id);
+  }
+
+  getAll(skip: number, take: number) {
+    return this.repo.find({
+      skip,
+      take,
+    });
   }
 }

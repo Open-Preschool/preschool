@@ -6,6 +6,9 @@ import {
   PrimaryGeneratedColumn,
   Column,
   Index,
+  DeleteDateColumn,
+  CreateDateColumn,
+  AfterRemove,
 } from 'typeorm';
 
 @Entity()
@@ -18,29 +21,31 @@ export class Classroom {
   @Column()
   teacher_id: string;
 
-  @Column({ nullable: true })
+  @DeleteDateColumn()
   deleted_at?: Date;
 
-  @Column({ generated: 'uuid' })
-  random_id: string;
-
-  @Column()
-  creation_date: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
   @Column({ type: 'jsonb' })
   lessons: string[];
 
   @Column({ nullable: true })
-  description?: string;
+  description: string;
 
   // Hooks
   @AfterInsert()
   logInsert() {
-    console.log(`Inserted ${this.id}`);
+    console.log(`Inserted ${JSON.stringify(this, null, 2)}`);
   }
 
   @AfterUpdate()
   logUpdate() {
     console.log(`Updated ${JSON.stringify(this, null, 2)}`);
+  }
+
+  @AfterRemove()
+  logRemove() {
+    console.log(`REMOVED ${JSON.stringify(this, null, 2)}`);
   }
 }

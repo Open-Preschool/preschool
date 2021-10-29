@@ -21,7 +21,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "redis:up": "docker-compose up -d",
     "redis:stop": "docker-compose stop",
-    "redis:down": "docker-compose down"
+    "redis:down": "docker-compose down",
+    "supabase": "supabase start"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

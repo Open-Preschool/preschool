@@ -6,13 +6,13 @@ export class Classroom {
   id: string;
 
   @Field({ name: 'teacherId' })
-  teacherId: string;
+  teacher_id: string;
 
   @Field({ nullable: true })
   description?: string;
 
-  @Field()
-  creationDate: Date;
+  @Field({ name: 'createdAt' })
+  created_at: Date;
 
   @Field(() => [String])
   lessons: string[];

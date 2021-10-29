@@ -4,7 +4,7 @@
 
 """classroom """
 type Classroom {
-  creationDate: DateTime!
+  createdAt: DateTime!
   description: String
   id: ID!
   lessons: [String!]!
