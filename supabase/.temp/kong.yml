@@ -2,7 +2,7 @@ _format_version: "1.1"
 services:
   - name: auth-v1-open
     _comment: "GoTrue: /auth/v1/verify* -> http://auth:9999/verify*"
-    url: http://supabase_auth_server:9999/verify
+    url: http://supabase_auth_preschool:9999/verify
     routes:
       - name: auth-v1-open
         strip_path: true
@@ -12,7 +12,7 @@ services:
       - name: cors
   - name: auth-v1-open-callback
     _comment: "GoTrue: /auth/v1/callback* -> http://auth:9999/callback*"
-    url: http://supabase_auth_server:9999/callback
+    url: http://supabase_auth_preschool:9999/callback
     routes:
       - name: auth-v1-open-callback
         strip_path: true
@@ -22,7 +22,7 @@ services:
       - name: cors
   - name: auth-v1-open-authorize
     _comment: "GoTrue: /auth/v1/authorize* -> http://auth:9999/authorize*"
-    url: http://supabase_auth_server:9999/authorize
+    url: http://supabase_auth_preschool:9999/authorize
     routes:
       - name: auth-v1-open-authorize
         strip_path: true
@@ -32,7 +32,7 @@ services:
       - name: cors
   - name: auth-v1
     _comment: "GoTrue: /auth/v1/* -> http://auth:9999/*"
-    url: http://supabase_auth_server:9999/
+    url: http://supabase_auth_preschool:9999/
     routes:
       - name: auth-v1-all
         strip_path: true
@@ -45,7 +45,7 @@ services:
           hide_credentials: false
   - name: rest-v1
     _comment: "PostgREST: /rest/v1/* -> http://rest:3000/*"
-    url: http://supabase_rest_server:3000/
+    url: http://supabase_rest_preschool:3000/
     routes:
       - name: rest-v1-all
         strip_path: true
@@ -58,7 +58,7 @@ services:
           hide_credentials: true
   - name: realtime-v1
     _comment: "Realtime: /realtime/v1/* -> ws://realtime:4000/socket/*"
-    url: http://supabase_realtime_server:4000/socket/
+    url: http://supabase_realtime_preschool:4000/socket/
     routes:
       - name: realtime-v1-all
         strip_path: true
@@ -71,7 +71,7 @@ services:
           hide_credentials: false
   - name: storage-v1
     _comment: "Storage: /storage/v1/* -> http://storage-api:5000/*"
-    url: http://supabase_storage_server:5000/
+    url: http://supabase_storage_preschool:5000/
     routes:
       - name: storage-v1-all
         strip_path: true

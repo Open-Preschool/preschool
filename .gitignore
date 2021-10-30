@@ -13,3 +13,8 @@ web-build/
 .DS_Store
 
 .env
+
+# Supabase
+**/supabase/.temp
+**/supabase/.env
+**/supabase/.globals.sql
