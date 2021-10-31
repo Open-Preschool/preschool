@@ -14,7 +14,10 @@ export default function ModalScreen() {
     fetchPolicy: 'no-cache',
   });
   if (loading) return <Text>Loading...</Text>;
-  if (error) return <Text>Error :(</Text>;
+  if (error) {
+    console.log('error', JSON.stringify(error, null, 2));
+    return <Text>Error :(</Text>;
+  }
   if (data) {
     return (
       <View style={styles.container}>
