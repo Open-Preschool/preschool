@@ -23,10 +23,10 @@
       {
         "kind": "OBJECT",
         "name": "Classroom",
-        "description": "recipe ",
+        "description": "classroom ",
         "fields": [
           {
-            "name": "creationDate",
+            "name": "createdAt",
             "description": null,
             "args": [],
             "type": {
@@ -94,7 +94,7 @@
             "deprecationReason": null
           },
           {
-            "name": "title",
+            "name": "teacherId",
             "description": null,
             "args": [],
             "type": {

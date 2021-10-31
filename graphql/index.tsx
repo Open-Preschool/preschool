@@ -16,14 +16,14 @@ export type Scalars = {
   DateTime: any;
 };
 
-/** recipe  */
+/** classroom  */
 export type Classroom = {
   __typename?: 'Classroom';
-  creationDate: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   lessons: Array<Scalars['String']>;
-  title: Scalars['String'];
+  teacherId: Scalars['String'];
 };
 
 export type Mutation = {
@@ -70,50 +70,47 @@ export type Subscription = {
   classroomAdded: Classroom;
 };
 
-export type ClassroomQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
+export type ClassroomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ClassroomQuery = { __typename?: 'Query', classroom: { __typename?: 'Classroom', id: string, creationDate: any, description?: string | null | undefined, title: string, lessons: Array<string> } };
+export type ClassroomsQuery = { __typename?: 'Query', classrooms: Array<{ __typename?: 'Classroom', id: string, description?: string | null | undefined, createdAt: any, lessons: Array<string>, teacherId: string }> };
 
 
-export const ClassroomDocument = gql`
-    query classroom($id: String!) {
-  classroom(id: $id) {
+export const ClassroomsDocument = gql`
+    query classrooms {
+  classrooms {
     id
-    creationDate
     description
-    title
+    createdAt
     lessons
+    teacherId
   }
 }
     `;
 
 /**
- * __useClassroomQuery__
+ * __useClassroomsQuery__
  *
- * To run a query within a React component, call `useClassroomQuery` and pass it any options that fit your needs.
- * When your component renders, `useClassroomQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useClassroomsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useClassroomsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useClassroomQuery({
+ * const { data, loading, error } = useClassroomsQuery({
  *   variables: {
- *      id: // value for 'id'
  *   },
  * });
  */
-export function useClassroomQuery(baseOptions: Apollo.QueryHookOptions<ClassroomQuery, ClassroomQueryVariables>) {
+export function useClassroomsQuery(baseOptions?: Apollo.QueryHookOptions<ClassroomsQuery, ClassroomsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ClassroomQuery, ClassroomQueryVariables>(ClassroomDocument, options);
+        return Apollo.useQuery<ClassroomsQuery, ClassroomsQueryVariables>(ClassroomsDocument, options);
       }
-export function useClassroomLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ClassroomQuery, ClassroomQueryVariables>) {
+export function useClassroomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ClassroomsQuery, ClassroomsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ClassroomQuery, ClassroomQueryVariables>(ClassroomDocument, options);
+          return Apollo.useLazyQuery<ClassroomsQuery, ClassroomsQueryVariables>(ClassroomsDocument, options);
         }
-export type ClassroomQueryHookResult = ReturnType<typeof useClassroomQuery>;
-export type ClassroomLazyQueryHookResult = ReturnType<typeof useClassroomLazyQuery>;
-export type ClassroomQueryResult = Apollo.QueryResult<ClassroomQuery, ClassroomQueryVariables>;
+export type ClassroomsQueryHookResult = ReturnType<typeof useClassroomsQuery>;
+export type ClassroomsLazyQueryHookResult = ReturnType<typeof useClassroomsLazyQuery>;
+export type ClassroomsQueryResult = Apollo.QueryResult<ClassroomsQuery, ClassroomsQueryVariables>;

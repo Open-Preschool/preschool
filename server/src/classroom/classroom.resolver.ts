@@ -11,7 +11,7 @@ import { ClassroomService } from './classroom.service';
 
 const pubSub = new PubSub();
 
-// @UseGuards(GqlAuthGuard)
+@UseGuards(GqlAuthGuard)
 @Resolver(() => Classroom)
 export class ClassroomsResolver {
   constructor(private readonly classroomService: ClassroomService) {}

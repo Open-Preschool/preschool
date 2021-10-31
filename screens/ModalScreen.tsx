@@ -1,27 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
-import { useClassroomQuery } from '../graphql';
+import { useClassroomsQuery } from '../graphql';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
 export default function ModalScreen() {
-  const { loading, error, data } = useClassroomQuery({
-    variables: {
-      id: 'abc123',
-    },
+  const { loading, error, data } = useClassroomsQuery({
     fetchPolicy: 'no-cache',
   });
   if (loading) return <Text>Loading...</Text>;
-  if (error) return <Text>Error :(</Text>;
+  if (error) {
+    console.log('error', JSON.stringify(error, null, 2));
+    return <Text>Error :(</Text>;
+  }
   if (data) {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Modal</Text>
-        <Text style={styles.title}>
-          {data.classroom.title} {data.classroom.id}
-        </Text>
+        <Text style={styles.title}>{data.classrooms[0].id}</Text>
         <View
           style={styles.separator}
           lightColor="#eee"

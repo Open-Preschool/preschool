@@ -9,15 +9,15 @@
 version: '3.7'
 services:
   # Use supabase CLI instead
-  # pg-preschool:
-  #   container_name: 'pg-preschool'
-  #   image: postgres:latest
-  #   ports:
-  #     - '5432:5432'
-  #   environment:
-  #     - 'POSTGRES_PASSWORD=postgres'
-  #   volumes:
-  #     - local-data:/pg/docker-entrypoint-initdb.d/
+  pg-preschool:
+    container_name: 'pg-preschool'
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - 'POSTGRES_PASSWORD=postgres'
+    volumes:
+      - local-data:/pg/docker-entrypoint-initdb.d/
 
   redis-preschool:
     container_name: 'redis-preschool'
