@@ -1,9 +1,9 @@
-query classroom($id: String!) {
-  classroom(id: $id) {
+query classrooms {
+  classrooms {
     id
-    creationDate
     description
-    title
+    createdAt
     lessons
+    teacherId
   }
 }
