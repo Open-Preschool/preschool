@@ -17,6 +17,13 @@ export class ClassroomService {
     return this.repo.save(user);
   }
 
+  async update(attrs: Partial<Classroom>) {
+    const room = await this.getOne(attrs.id);
+    Object.assign(room, attrs);
+    return this.repo.save(room);
+    // return this.repo.update(id, rest);
+  }
+
   async delete(id: string): Promise<boolean> {
     try {
       const classroom = await this.getOne(id);

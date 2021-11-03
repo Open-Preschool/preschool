@@ -8,6 +8,7 @@ import { GqlAuthGuard } from '../auth/supabase.guard';
 import { SupabaseAuthUser } from 'nestjs-supabase-auth';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { ClassroomService } from './classroom.service';
+import { UpdateClassroomInput } from './dto/update-classroom.input';
 
 const pubSub = new PubSub();
 
@@ -50,8 +51,27 @@ export class ClassroomsResolver {
     return this.classroomService.delete(id);
   }
 
+  @Mutation(() => Classroom)
+  async updateClassroom(
+    @Args('updateClassroomData') updateClassroomData: UpdateClassroomInput,
+  ) {
+    const updatedClassroom = await this.classroomService.update(
+      updateClassroomData,
+    );
+    pubSub.publish('classroomUpdated', { classroomUpdated: updatedClassroom });
+    return updatedClassroom;
+  }
+
   @Subscription(() => Classroom)
   classroomAdded() {
     return pubSub.asyncIterator('classroomAdded');
+  }
+
+  @Subscription(() => Classroom, {
+    filter: (payload, variables) => payload.classroomUpdated.id == variables.id,
+  })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  classroomUpdated(@Args('id') _id: string) {
+    return pubSub.asyncIterator('classroomUpdated');
   }
 }

@@ -19,12 +19,12 @@ scalar DateTime
 type Mutation {
   addClassroom(newClassroomData: NewClassroomInput!): Classroom!
   removeClassroom(id: String!): Boolean!
+  updateClassroom(updateClassroomData: UpdateClassroomInput!): Classroom!
 }
 
 input NewClassroomInput {
   description: String
   lessons: [String!]!
-  title: String!
 }
 
 type Query {
@@ -34,4 +34,11 @@ type Query {
 
 type Subscription {
   classroomAdded: Classroom!
+  classroomUpdated(id: String!): Classroom!
+}
+
+input UpdateClassroomInput {
+  description: String
+  id: String!
+  lessons: [String]
 }
