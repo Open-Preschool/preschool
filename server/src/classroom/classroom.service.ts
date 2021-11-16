@@ -38,10 +38,19 @@ export class ClassroomService {
     return this.repo.findOneOrFail(id);
   }
 
-  getAll(skip: number, take: number): Promise<Classroom[]> {
+  getAll({ skip, take, teacherId }: GetAllArgs): Promise<Classroom[]> {
     return this.repo.find({
+      where: {
+        teacher_id: teacherId,
+      },
       skip,
       take,
     });
   }
+}
+
+interface GetAllArgs {
+  skip: number;
+  take: number;
+  teacherId: string;
 }

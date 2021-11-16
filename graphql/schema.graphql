@@ -7,3 +7,9 @@ query classrooms {
     teacherId
   }
 }
+
+subscription classroomAdded {
+  classroomAdded {
+    id
+  }
+}

@@ -6,12 +6,18 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { useUser } from '../contexts/UserContext';
 import { RootTabScreenProps } from '../types';
+import { useClassroomAddedSubscription } from '../graphql';
 
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<'TabOne'>) {
   const { user, session } = useUser();
   console.log('session', JSON.stringify(session, null, 2));
+
+  const { data: subData, error: subError } = useClassroomAddedSubscription();
+  console.log('subData', JSON.stringify(subData, null, 2));
+  console.log('subError', JSON.stringify(subError, null, 2));
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab One</Text>

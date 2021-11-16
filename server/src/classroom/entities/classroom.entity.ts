@@ -43,16 +43,16 @@ export class Classroom {
   // Hooks
   @AfterInsert()
   logInsert() {
-    console.log(`Inserted ${JSON.stringify(this, null, 2)}`);
+    // console.log(`Inserted ${JSON.stringify(this, null, 2)}`);
   }
 
   @AfterUpdate()
   logUpdate() {
-    console.log(`Updated ${JSON.stringify(this, null, 2)}`);
+    // console.log(`Updated ${JSON.stringify(this, null, 2)}`);
   }
 
   @AfterRemove()
   logRemove() {
-    console.log(`REMOVED ${JSON.stringify(this, null, 2)}`);
+    // console.log(`REMOVED ${JSON.stringify(this, null, 2)}`);
   }
 }

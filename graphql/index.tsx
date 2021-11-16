@@ -30,6 +30,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addClassroom: Classroom;
   removeClassroom: Scalars['Boolean'];
+  updateClassroom: Classroom;
 };
 
 
@@ -42,10 +43,14 @@ export type MutationRemoveClassroomArgs = {
   id: Scalars['String'];
 };
 
+
+export type MutationUpdateClassroomArgs = {
+  updateClassroomData: UpdateClassroomInput;
+};
+
 export type NewClassroomInput = {
   description?: Maybe<Scalars['String']>;
   lessons: Array<Scalars['String']>;
-  title: Scalars['String'];
 };
 
 export type Query = {
@@ -68,12 +73,30 @@ export type QueryClassroomsArgs = {
 export type Subscription = {
   __typename?: 'Subscription';
   classroomAdded: Classroom;
+  classroomDelete: Scalars['String'];
+  classroomUpdated: Classroom;
+};
+
+
+export type SubscriptionClassroomUpdatedArgs = {
+  id: Scalars['String'];
+};
+
+export type UpdateClassroomInput = {
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  lessons?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type ClassroomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ClassroomsQuery = { __typename?: 'Query', classrooms: Array<{ __typename?: 'Classroom', id: string, description?: string | null | undefined, createdAt: any, lessons: Array<string>, teacherId: string }> };
+
+export type ClassroomAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ClassroomAddedSubscription = { __typename?: 'Subscription', classroomAdded: { __typename?: 'Classroom', id: string } };
 
 
 export const ClassroomsDocument = gql`
@@ -114,3 +137,32 @@ export function useClassroomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type ClassroomsQueryHookResult = ReturnType<typeof useClassroomsQuery>;
 export type ClassroomsLazyQueryHookResult = ReturnType<typeof useClassroomsLazyQuery>;
 export type ClassroomsQueryResult = Apollo.QueryResult<ClassroomsQuery, ClassroomsQueryVariables>;
+export const ClassroomAddedDocument = gql`
+    subscription classroomAdded {
+  classroomAdded {
+    id
+  }
+}
+    `;
+
+/**
+ * __useClassroomAddedSubscription__
+ *
+ * To run a query within a React component, call `useClassroomAddedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useClassroomAddedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useClassroomAddedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useClassroomAddedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ClassroomAddedSubscription, ClassroomAddedSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<ClassroomAddedSubscription, ClassroomAddedSubscriptionVariables>(ClassroomAddedDocument, options);
+      }
+export type ClassroomAddedSubscriptionHookResult = ReturnType<typeof useClassroomAddedSubscription>;
+export type ClassroomAddedSubscriptionResult = Apollo.SubscriptionResult<ClassroomAddedSubscription>;

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, UnauthorizedException } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { join } from 'path';
 import { ClassroomModule } from './classroom/classroom.module';
+import * as jwt from 'jsonwebtoken';
 
 @Module({
   imports: [
@@ -17,6 +18,32 @@ import { ClassroomModule } from './classroom/classroom.module';
       sortSchema: true,
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      subscriptions: {
+        'subscriptions-transport-ws': {
+          onConnect: (connectionParams) => {
+            const authToken = connectionParams?.headers?.authorization;
+            if (!authToken) {
+              throw new UnauthorizedException();
+            }
+            const [, token] = authToken.split(' ');
+            const user = jwt.verify(
+              token,
+              '0ff1325a-7b4b-441e-bd8b-142089032f18',
+            );
+            if (!user) {
+              throw new UnauthorizedException();
+            }
+            return { user };
+          },
+        },
+      },
+      // context: ({ connection }) => {
+      context: (connection) => {
+        // connection.context SHOULD be equal to what was returned by the "onConnect" callback
+        if (connection) {
+          console.log('connection', connection);
+        }
+      },
     }),
     AuthModule,
     ClassroomModule,

@@ -6,6 +6,11 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 export class GqlAuthGuard extends AuthGuard('supabase') {
   getRequest(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
-    return ctx.getContext().req;
+    const { req, connection } = ctx.getContext();
+
+    // if subscriptions/webSockets, let it pass headers from connection.context to passport-jwt
+    return connection && connection.context && connection.context.headers
+      ? connection.context
+      : req;
   }
 }
