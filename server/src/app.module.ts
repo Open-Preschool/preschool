@@ -26,10 +26,7 @@ import * as jwt from 'jsonwebtoken';
               throw new UnauthorizedException();
             }
             const [, token] = authToken.split(' ');
-            const user = jwt.verify(
-              token,
-              '0ff1325a-7b4b-441e-bd8b-142089032f18',
-            );
+            const user = jwt.verify(token, process.env.SUPABASE_JWT_SIGNATURE);
             if (!user) {
               throw new UnauthorizedException();
             }

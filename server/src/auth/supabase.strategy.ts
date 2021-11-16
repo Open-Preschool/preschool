@@ -10,11 +10,8 @@ export class SupabaseStrategy extends PassportStrategy(
 ) {
   public constructor() {
     super({
-      // supabaseUrl: process.env.SUPABASE_URL,
-      supabaseUrl: 'https://pceywmpoejzsgppovrkw.supabase.co',
-      // supabaseKey: process.env.SUPABASE_KEY,
-      supabaseKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjMzMjI5NzMzLCJleHAiOjE5NDg4MDU3MzN9.8PwINVZ6JwDJVJhXIPiO4b00fkLxdINKHmjv9YBjs6c',
+      supabaseUrl: process.env.SUPABASE_URL,
+      supabaseKey: process.env.SUPABASE_KEY,
       supabaseOptions: {},
       extractor: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
