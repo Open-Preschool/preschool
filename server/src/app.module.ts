@@ -1,4 +1,5 @@
 import { Module, UnauthorizedException } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -12,6 +13,7 @@ import * as jwt from 'jsonwebtoken';
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
+    ConfigModule.forRoot(),
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true, // subscriptions: {'graphql-ws': true},
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
