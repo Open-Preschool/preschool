@@ -20,7 +20,7 @@ jest.mock('../../lib/supabase', () => ({
 }));
 
 it(`renders the initial screen`, () => {
-  const { getByText } = render(<Auth />);
+  const { getByText } = render(<Auth colorScheme="dark" />);
   expect(getByText('Email')).not.toBeNull();
   expect(getByText('Password')).not.toBeNull();
   expect(getByText('Sign in')).not.toBeNull();
@@ -28,7 +28,9 @@ it(`renders the initial screen`, () => {
 });
 
 it('signs in with valid email', () => {
-  const { getByText, getByPlaceholderText, debug } = render(<Auth />);
+  const { getByText, getByPlaceholderText, debug } = render(
+    <Auth colorScheme="light" />,
+  );
   const email = getByPlaceholderText('email@address.com');
   fireEvent(email, 'onChangeText', 'a@b.c');
   expect(email.props.value).toBe('a@b.c');
