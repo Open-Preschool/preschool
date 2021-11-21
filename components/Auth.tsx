@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { Styles } from '../lib/constants';
 import { supabase } from '../lib/supabase';
@@ -6,14 +6,12 @@ import { supabase } from '../lib/supabase';
 import { Button, Input } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-enum Intent {
-  None,
-  SignIn,
-  SignUp,
+interface Props {
+  colorScheme: 'light' | 'dark';
 }
 
 export default Auth;
-export function Auth() {
+export function Auth({ colorScheme }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState('');
@@ -29,10 +27,17 @@ export function Auth() {
     if (!user) setLoading('');
   };
 
+  const inputStyles = StyleSheet.create({
+    input: {
+      color: colorScheme === 'dark' ? '#fff' : '#000',
+    },
+  });
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={colorScheme === 'dark' ? styles.dark : styles.light}>
       <View style={[styles.verticallySpaced, { marginTop: 20 }]}>
         <Input
+          style={inputStyles.input}
           label="Email"
           leftIcon={{ type: 'font-awesome', name: 'envelope' }}
           onChangeText={(text) => setEmail(text)}
@@ -44,6 +49,7 @@ export function Auth() {
       </View>
       <View style={styles.verticallySpaced}>
         <Input
+          style={inputStyles.input}
           label="Password"
           leftIcon={{ type: 'font-awesome', name: 'lock' }}
           onChangeText={(text) => setPassword(text)}
@@ -82,5 +88,17 @@ const styles = StyleSheet.create({
     paddingTop: 4,
     paddingBottom: 4,
     alignSelf: 'stretch',
+  },
+  light: {
+    color: '#000',
+    backgroundColor: '#fff',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  dark: {
+    color: '#fff',
+    backgroundColor: '#000',
+    flex: 1,
+    justifyContent: 'center',
   },
 });

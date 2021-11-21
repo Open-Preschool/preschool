@@ -89,7 +89,11 @@ export default function App() {
 
     return (
       <>
-        {user ? <Navigation colorScheme={colorScheme} /> : <Auth />}
+        {user ? (
+          <Navigation colorScheme={colorScheme} />
+        ) : (
+          <Auth colorScheme={colorScheme} />
+        )}
         <StatusBar />
       </>
     );
