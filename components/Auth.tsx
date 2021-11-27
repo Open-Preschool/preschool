@@ -5,13 +5,15 @@ import { supabase } from '../lib/supabase';
 
 import { Button, Input } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import useColorScheme from '../hooks/useColorScheme';
 
 interface Props {
   colorScheme: 'light' | 'dark';
 }
 
 export default Auth;
-export function Auth({ colorScheme }: Props) {
+export function Auth() {
+  const colorScheme = useColorScheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState('');
