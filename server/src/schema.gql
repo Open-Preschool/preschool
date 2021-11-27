@@ -33,9 +33,9 @@ type Query {
 }
 
 type Subscription {
-  classroomAdded: Classroom!
   classroomDelete: String!
   classroomUpdated(id: String!): Classroom!
+  classrooms: Classroom!
 }
 
 input UpdateClassroomInput {

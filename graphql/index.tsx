@@ -72,9 +72,9 @@ export type QueryClassroomsArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  classroomAdded: Classroom;
   classroomDelete: Scalars['String'];
   classroomUpdated: Classroom;
+  classrooms: Classroom;
 };
 
 
@@ -96,7 +96,7 @@ export type ClassroomsQuery = { __typename?: 'Query', classrooms: Array<{ __type
 export type ClassroomAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ClassroomAddedSubscription = { __typename?: 'Subscription', classroomAdded: { __typename?: 'Classroom', id: string } };
+export type ClassroomAddedSubscription = { __typename?: 'Subscription', classrooms: { __typename?: 'Classroom', id: string, description?: string | null | undefined, createdAt: any, lessons: Array<string>, teacherId: string } };
 
 
 export const ClassroomsDocument = gql`
@@ -139,8 +139,12 @@ export type ClassroomsLazyQueryHookResult = ReturnType<typeof useClassroomsLazyQ
 export type ClassroomsQueryResult = Apollo.QueryResult<ClassroomsQuery, ClassroomsQueryVariables>;
 export const ClassroomAddedDocument = gql`
     subscription classroomAdded {
-  classroomAdded {
+  classrooms {
     id
+    description
+    createdAt
+    lessons
+    teacherId
   }
 }
     `;

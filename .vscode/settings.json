@@ -8,6 +8,15 @@
       "driver": "PostgreSQL",
       "connectString": "postgresql://postgres:postgres@localhost:54322/postgres",
       "name": "local supabase"
+    },
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "askForPassword": false,
+      "driver": "PostgreSQL",
+      "connectString": "postgresql://postgres:postgres@localhost:5432/postgres",
+      "name": "local Postgres"
     }
   ]
 }

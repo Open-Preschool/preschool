@@ -9,7 +9,11 @@ query classrooms {
 }
 
 subscription classroomAdded {
-  classroomAdded {
+  classrooms {
     id
+    description
+    createdAt
+    lessons
+    teacherId
   }
 }

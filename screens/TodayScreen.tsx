@@ -20,7 +20,7 @@ export default function TabOneScreen({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
+      <Text style={styles.title}>Today</Text>
       <Text>{user?.email}</Text>
       <View
         style={styles.separator}

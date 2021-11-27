@@ -28,7 +28,6 @@ export class ClassroomsResolver {
     @Args() classroomsArgs: ClassroomsArgs,
     @CurrentUser() user: SupabaseAuthUser,
   ): Promise<Classroom[]> {
-    // console.log('user', JSON.stringify(user, null, 2));
     const { skip, take } = classroomsArgs;
     return this.classroomService.getAll({ skip, take, teacherId: user.id });
   }
@@ -39,13 +38,11 @@ export class ClassroomsResolver {
     @CurrentUser() user: SupabaseAuthUser,
     @Args('newClassroomData') newClassroomData: NewClassroomInput,
   ): Promise<Classroom> {
-    // console.log('user', JSON.stringify(user, null, 2));
-    // console.log('newClassroomData', JSON.stringify(newClassroomData, null, 2));
     const newClassroom = await this.classroomService.create(
       user.id,
       newClassroomData.lessons,
     );
-    pubSub.publish('classroomAdded', { classroomAdded: newClassroom });
+    pubSub.publish('classroomAdded', { classrooms: newClassroom });
     return newClassroom;
   }
 
@@ -73,7 +70,8 @@ export class ClassroomsResolver {
     return pubSub.asyncIterator('classroomDelete');
   }
 
-  @Subscription(() => Classroom)
+  // TODO: address name for client query->subscription types
+  @Subscription(() => Classroom, { name: 'classrooms' })
   classroomAdded() {
     return pubSub.asyncIterator('classroomAdded');
   }
