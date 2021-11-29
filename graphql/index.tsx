@@ -23,6 +23,7 @@ export type Classroom = {
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   lessons: Array<Scalars['String']>;
+  name: Scalars['String'];
   teacherId: Scalars['String'];
 };
 
@@ -51,6 +52,7 @@ export type MutationUpdateClassroomArgs = {
 export type NewClassroomInput = {
   description?: Maybe<Scalars['String']>;
   lessons: Array<Scalars['String']>;
+  name: Scalars['String'];
 };
 
 export type Query = {
@@ -86,23 +88,25 @@ export type UpdateClassroomInput = {
   description?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   lessons?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name?: Maybe<Scalars['String']>;
 };
 
 export type ClassroomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ClassroomsQuery = { __typename?: 'Query', classrooms: Array<{ __typename?: 'Classroom', id: string, description?: string | null | undefined, createdAt: any, lessons: Array<string>, teacherId: string }> };
+export type ClassroomsQuery = { __typename?: 'Query', classrooms: Array<{ __typename?: 'Classroom', id: string, name: string, description?: string | null | undefined, createdAt: any, lessons: Array<string>, teacherId: string }> };
 
 export type ClassroomAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ClassroomAddedSubscription = { __typename?: 'Subscription', classrooms: { __typename?: 'Classroom', id: string, description?: string | null | undefined, createdAt: any, lessons: Array<string>, teacherId: string } };
+export type ClassroomAddedSubscription = { __typename?: 'Subscription', classrooms: { __typename?: 'Classroom', id: string, name: string, description?: string | null | undefined, createdAt: any, lessons: Array<string>, teacherId: string } };
 
 
 export const ClassroomsDocument = gql`
     query classrooms {
   classrooms {
     id
+    name
     description
     createdAt
     lessons
@@ -141,6 +145,7 @@ export const ClassroomAddedDocument = gql`
     subscription classroomAdded {
   classrooms {
     id
+    name
     description
     createdAt
     lessons

@@ -41,6 +41,7 @@ export class ClassroomsResolver {
     const newClassroom = await this.classroomService.create(
       user.id,
       newClassroomData.lessons,
+      newClassroomData.name,
     );
     pubSub.publish('classroomAdded', { classrooms: newClassroom });
     return newClassroom;

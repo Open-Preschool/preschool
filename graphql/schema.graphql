@@ -1,6 +1,7 @@
 query classrooms {
   classrooms {
     id
+    name
     description
     createdAt
     lessons
@@ -11,6 +12,7 @@ query classrooms {
 subscription classroomAdded {
   classrooms {
     id
+    name
     description
     createdAt
     lessons

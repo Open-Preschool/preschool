@@ -8,6 +8,7 @@ type Classroom {
   description: String
   id: ID!
   lessons: [String!]!
+  name: String!
   teacherId: String!
 }
 
@@ -25,6 +26,7 @@ type Mutation {
 input NewClassroomInput {
   description: String
   lessons: [String!]!
+  name: String!
 }
 
 type Query {
@@ -42,4 +44,5 @@ input UpdateClassroomInput {
   description: String
   id: String!
   lessons: [String]
+  name: String
 }

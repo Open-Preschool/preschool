@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { join } from 'path';
 import { ClassroomModule } from './classroom/classroom.module';
 import * as jwt from 'jsonwebtoken';
+import { PubSub } from 'graphql-subscriptions';
 
 @Module({
   imports: [
@@ -36,8 +37,7 @@ import * as jwt from 'jsonwebtoken';
           },
         },
       },
-      // context: ({ connection }) => {
-      context: (connection) => {
+      context: ({ connection }) => {
         // connection.context SHOULD be equal to what was returned by the "onConnect" callback
         if (connection) {
           console.log('connection', connection);
@@ -48,6 +48,13 @@ import * as jwt from 'jsonwebtoken';
     ClassroomModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: 'PUB_SUB',
+      // https://dev.to/thisdotmedia/graphql-subscriptions-with-nest-how-to-publish-across-multiple-running-servers-15e
+      useValue: new PubSub(),
+    },
+  ],
 })
 export class AppModule {}

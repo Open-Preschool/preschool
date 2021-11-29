@@ -25,6 +25,10 @@ export class Classroom {
   @Column()
   teacher_id: string;
 
+  @Column()
+  @Field()
+  name: string;
+
   @DeleteDateColumn()
   deleted_at?: Date;
 

@@ -9,10 +9,15 @@ export class ClassroomService {
     @InjectRepository(Classroom) private repo: Repository<Classroom>,
   ) {}
 
-  create(teacher_id: string, lessons: string[]): Promise<Classroom> {
+  create(
+    teacher_id: string,
+    lessons: string[],
+    name: string,
+  ): Promise<Classroom> {
     const user = this.repo.create({
       teacher_id,
       lessons,
+      name,
     });
     return this.repo.save(user);
   }

@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -6,17 +5,12 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { useUser } from '../contexts/UserContext';
 import { RootTabScreenProps } from '../types';
-import { useClassroomAddedSubscription } from '../graphql';
 
 export default function TabOneScreen({
   navigation,
-}: RootTabScreenProps<'TabOne'>) {
+}: RootTabScreenProps<'Today'>) {
   const { user, session } = useUser();
   console.log('session', JSON.stringify(session, null, 2));
-
-  const { data: subData, error: subError } = useClassroomAddedSubscription();
-  console.log('subData', JSON.stringify(subData, null, 2));
-  console.log('subError', JSON.stringify(subError, null, 2));
 
   return (
     <View style={styles.container}>

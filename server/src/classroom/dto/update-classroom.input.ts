@@ -15,4 +15,9 @@ export class UpdateClassroomInput {
   @Field(() => [String], { nullable: 'itemsAndList' })
   @IsOptional()
   lessons?: string[];
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @Length(5, 255)
+  name: string;
 }

@@ -10,4 +10,7 @@ export class NewClassroomInput {
 
   @Field(() => [String])
   lessons: string[];
+
+  @Field(() => String)
+  name: string;
 }
