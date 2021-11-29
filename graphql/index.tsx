@@ -101,6 +101,13 @@ export type ClassroomAddedSubscriptionVariables = Exact<{ [key: string]: never; 
 
 export type ClassroomAddedSubscription = { __typename?: 'Subscription', classrooms: { __typename?: 'Classroom', id: string, name: string, description?: string | null | undefined, createdAt: any, lessons: Array<string>, teacherId: string } };
 
+export type RemoveClassroomMutationVariables = Exact<{
+  removeClassroomId: Scalars['String'];
+}>;
+
+
+export type RemoveClassroomMutation = { __typename?: 'Mutation', removeClassroom: boolean };
+
 
 export const ClassroomsDocument = gql`
     query classrooms {
@@ -175,3 +182,34 @@ export function useClassroomAddedSubscription(baseOptions?: Apollo.SubscriptionH
       }
 export type ClassroomAddedSubscriptionHookResult = ReturnType<typeof useClassroomAddedSubscription>;
 export type ClassroomAddedSubscriptionResult = Apollo.SubscriptionResult<ClassroomAddedSubscription>;
+export const RemoveClassroomDocument = gql`
+    mutation RemoveClassroom($removeClassroomId: String!) {
+  removeClassroom(id: $removeClassroomId)
+}
+    `;
+export type RemoveClassroomMutationFn = Apollo.MutationFunction<RemoveClassroomMutation, RemoveClassroomMutationVariables>;
+
+/**
+ * __useRemoveClassroomMutation__
+ *
+ * To run a mutation, you first call `useRemoveClassroomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveClassroomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeClassroomMutation, { data, loading, error }] = useRemoveClassroomMutation({
+ *   variables: {
+ *      removeClassroomId: // value for 'removeClassroomId'
+ *   },
+ * });
+ */
+export function useRemoveClassroomMutation(baseOptions?: Apollo.MutationHookOptions<RemoveClassroomMutation, RemoveClassroomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveClassroomMutation, RemoveClassroomMutationVariables>(RemoveClassroomDocument, options);
+      }
+export type RemoveClassroomMutationHookResult = ReturnType<typeof useRemoveClassroomMutation>;
+export type RemoveClassroomMutationResult = Apollo.MutationResult<RemoveClassroomMutation>;
+export type RemoveClassroomMutationOptions = Apollo.BaseMutationOptions<RemoveClassroomMutation, RemoveClassroomMutationVariables>;

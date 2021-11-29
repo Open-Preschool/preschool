@@ -1,16 +1,22 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
-import { Button } from 'react-native-elements';
+import { Button, ListItem } from 'react-native-elements';
 import { supabase } from '../lib/supabase';
 import { ApolloConsumer } from '@apollo/client';
 import {
   ClassroomAddedDocument,
   useClassroomsQuery,
+  useRemoveClassroomMutation,
+  ClassroomsDocument,
 } from '../graphql';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function TabTwoScreen() {
   const { subscribeToMore, data, loading, error } = useClassroomsQuery();
+  const [removeClassroom] = useRemoveClassroomMutation({
+    refetchQueries: [ClassroomsDocument],
+  });
 
   React.useEffect(() => {
     subscribeToMore({
@@ -38,13 +44,44 @@ export default function TabTwoScreen() {
         darkColor="rgba(255,255,255,0.1)"
       />
 
-      {data?.classrooms.map((e) => {
-        return (
-          <View key={e.id}>
-            <Text key={e.id}>{e.name} </Text>
-          </View>
-        );
-      })}
+      <ScrollView>
+        {data?.classrooms.map((e) => {
+          return (
+            <ListItem.Swipeable
+              key={e.id}
+              bottomDivider
+              leftContent={
+                <Button
+                  title="Delete"
+                  icon={{ name: 'delete', color: 'white' }}
+                  buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
+                  onPress={() =>
+                    removeClassroom({ variables: { removeClassroomId: e.id } })
+                  }
+                />
+              }
+              rightContent={
+                <Button
+                  title="Delete"
+                  icon={{ name: 'delete', color: 'white' }}
+                  buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
+                  onPress={() =>
+                    removeClassroom({ variables: { removeClassroomId: e.id } })
+                  }
+                />
+              }
+            >
+              <ListItem.Content>
+                <ListItem.Title>{e.name} </ListItem.Title>
+                <ListItem.Subtitle>
+                  {e.lessons.length} Lessons
+                </ListItem.Subtitle>
+              </ListItem.Content>
+            </ListItem.Swipeable>
+          );
+        })}
+      </ScrollView>
+
       <ApolloConsumer>
         {(client) => {
           return (
@@ -65,7 +102,7 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
   },
   title: {

@@ -19,3 +19,7 @@ subscription classroomAdded {
     teacherId
   }
 }
+
+mutation RemoveClassroom($removeClassroomId: String!) {
+  removeClassroom(id: $removeClassroomId)
+}
