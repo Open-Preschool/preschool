@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsOptional, Length } from 'class-validator';
+import { NewSubjectInput } from './new-subject.input';
 
 @InputType()
 export class NewClassroomInput {
@@ -8,8 +9,8 @@ export class NewClassroomInput {
   @Length(30, 255)
   description?: string;
 
-  @Field(() => [String])
-  lessons: string[];
+  @Field(() => [NewSubjectInput], { nullable: 'itemsAndList' })
+  subjects?: NewSubjectInput[];
 
   @Field(() => String)
   name: string;

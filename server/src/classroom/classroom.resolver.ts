@@ -32,7 +32,7 @@ export class ClassroomsResolver {
     return this.classroomService.getAll({ skip, take, teacherId: user.id });
   }
 
-  @UseGuards(GqlAuthGuard)
+  // @UseGuards(GqlAuthGuard)
   @Mutation(() => Classroom)
   async addClassroom(
     @CurrentUser() user: SupabaseAuthUser,
@@ -40,7 +40,7 @@ export class ClassroomsResolver {
   ): Promise<Classroom> {
     const newClassroom = await this.classroomService.create(
       user.id,
-      newClassroomData.lessons,
+      newClassroomData.subjects,
       newClassroomData.name,
     );
     pubSub.publish('classroomAdded', { classrooms: newClassroom });

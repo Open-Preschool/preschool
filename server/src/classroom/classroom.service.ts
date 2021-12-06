@@ -1,22 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { NewSubjectInput } from './dto/new-subject.input';
 import { Classroom } from './entities/classroom.entity';
+import { Subject } from './entities/subject.entity';
 
 @Injectable()
 export class ClassroomService {
   constructor(
     @InjectRepository(Classroom) private repo: Repository<Classroom>,
+    @InjectRepository(Subject) private subRepo: Repository<Subject>,
   ) {}
 
-  create(
+  async create(
     teacher_id: string,
-    lessons: string[],
+    subjects: NewSubjectInput[],
     name: string,
   ): Promise<Classroom> {
+    const subs = subjects?.map((e) =>
+      this.subRepo.create({
+        name: e.name,
+        // lessons: ['writing numbers 1-10'],
+        lessons: { writing: 'numbers 1-10' },
+      }),
+    );
+    await Promise.all(subs?.map(async (s) => await this.subRepo.save(s)));
+    console.log('subs', JSON.stringify(subs, null, 2));
     const user = this.repo.create({
       teacher_id,
-      lessons,
+      subjects: subs,
       name,
     });
     return this.repo.save(user);

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Subject } from './subject.entity';
 import {
   AfterInsert,
   AfterUpdate,
@@ -10,6 +11,7 @@ import {
   DeleteDateColumn,
   CreateDateColumn,
   AfterRemove,
+  OneToMany,
 } from 'typeorm';
 
 @ObjectType({ description: 'classroom ' })
@@ -36,13 +38,13 @@ export class Classroom {
   @CreateDateColumn()
   created_at: Date;
 
-  @Field(() => [String])
-  @Column({ type: 'jsonb' })
-  lessons: string[];
-
   @Field({ nullable: true })
   @Column({ nullable: true })
   description?: string;
+
+  @Field(() => [Subject], { nullable: 'itemsAndList' })
+  @OneToMany(() => Subject, (subject) => subject.classroom, { nullable: true })
+  subjects?: Subject[];
 
   // Hooks
   @AfterInsert()
